@@ -12,7 +12,7 @@ import java.util.Random;
 /**
  *
  *
- * This class represents a ball, bouncing around the screen. It maintains a position and velocity, and it needs to knows how to update its position, based on how much time has passed.
+ * This class represents a ball, bouncing around the screen. It maintains a position and velocity, and it needs to know how to update its position, based on how much time has passed.
  *
  * and has basic physics for colliding with the "walls" (the edges of the screen).
  */
@@ -50,7 +50,8 @@ public class BouncingBall {
     public void update(float delta, Viewport viewport) {
 
         // TODO: Update the ball's position using its velocity
-
+        position.x += delta * velocity.x;
+        position.y += delta * velocity.y;
 
         collideWithWalls(radius, viewport.getWorldWidth(), viewport.getWorldHeight());
     }
@@ -60,16 +61,23 @@ public class BouncingBall {
             position.x = radius;
             velocity.x = -velocity.x;
         }
+
         if (position.x + radius > viewportWidth) {
             position.x = viewportWidth - radius;
             velocity.x = -velocity.x;
         }
 
         // TODO: Make the ball bounce off the bottom of the screen
-
+        if (position.y - radius < 0) {
+            position.y = radius;
+            velocity.y *= -1;
+        }
 
         // TODO: Make the ball bounce off the top of the screen
-
+        if (position.y + radius > viewportHeight) {
+            position.y = viewportHeight - radius;
+            velocity.y *= -1;
+        }
     }
 
     public void render(ShapeRenderer renderer) {

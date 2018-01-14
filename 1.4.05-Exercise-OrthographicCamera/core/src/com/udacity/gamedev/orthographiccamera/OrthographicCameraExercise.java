@@ -3,6 +3,7 @@ package com.udacity.gamedev.orthographiccamera;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.MathUtils;
@@ -27,7 +28,7 @@ public class OrthographicCameraExercise extends ApplicationAdapter {
     long timeCreated;
 
     //TODO: Declare an OrthographicCamera
-
+    private OrthographicCamera camera;
 
     @Override
     public void create() {
@@ -35,10 +36,11 @@ public class OrthographicCameraExercise extends ApplicationAdapter {
         timeCreated = TimeUtils.millis();
 
         // TODO: Initialize the camera
+        camera = new OrthographicCamera();
 
 
         // TODO: Set the camera's position to the center of the circle's movement (X_CENTER, Y_CENTER)
-
+        camera.position.set(X_CENTER, Y_CENTER, 0);
     }
 
     @Override
@@ -49,13 +51,20 @@ public class OrthographicCameraExercise extends ApplicationAdapter {
     @Override
     public void resize(int width, int height) {
 
+        /*
         // TODO: Calculate the aspect ratio (width / height)
-
+        float aspectRatio = (float) width / height;
 
         // TODO: Set the camera's viewport height taking into account the ball's movement and radius
-
+        camera.viewportHeight = 2 * (BALL_RADIUS + Y_AMPLITUDE);
 
         // TODO: Set the camera's viewport width to maintain the aspect ratio
+        camera.viewportWidth = aspectRatio * camera.viewportHeight;
+        */
+        float aspectRatio = (float) height / width;
+
+        camera.viewportWidth = 2 * (BALL_RADIUS + X_AMPLITUDE);
+        camera.viewportHeight = aspectRatio * camera.viewportWidth;
 
     }
 
@@ -65,16 +74,16 @@ public class OrthographicCameraExercise extends ApplicationAdapter {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         // TODO: Call update() on the camera
-
+        camera.update();
 
         // TODO: Set the SceneRenderer's projection matrix equal to the camera's combined matrix
-
+        renderer.setProjectionMatrix(camera.combined);
 
         renderer.begin(ShapeType.Filled);
         float interval = TimeUtils.timeSinceMillis(timeCreated);
         float x = X_CENTER + X_AMPLITUDE * MathUtils.sin(MathUtils.PI2 * interval /PERIOD);
         float y = Y_CENTER + Y_AMPLITUDE * MathUtils.sin(2* MathUtils.PI2 * interval / PERIOD);
-        renderer.circle(x, y, BALL_RADIUS);
+        renderer.circle(x, y, BALL_RADIUS, 40);
         renderer.end();
     }
 }

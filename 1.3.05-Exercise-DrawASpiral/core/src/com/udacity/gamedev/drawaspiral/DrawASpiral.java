@@ -56,10 +56,10 @@ public class DrawASpiral extends ApplicationAdapter {
             Vector2 point1 = new Vector2(xOffset, yOffset);
             Vector2 point2 = new Vector2(screenWidth - xOffset, yOffset);
             Vector2 point3 = new Vector2(screenWidth - xOffset, screenHeight - yOffset);
-            Vector2 point4 = new Vector2(xOffset, screenHeight - yOffset);
+            Vector2 point4 = new Vector2(xOffset - xStep, screenHeight - yOffset);
 
             // TODO: Make this coil stop before connecting back to itself
-            Vector2 point5 = new Vector2(xOffset, yOffset);
+            Vector2 point5 = new Vector2(xOffset - xStep, yOffset - yStep);
 
             shapeRenderer.line(point1, point2);
             shapeRenderer.line(point2, point3);

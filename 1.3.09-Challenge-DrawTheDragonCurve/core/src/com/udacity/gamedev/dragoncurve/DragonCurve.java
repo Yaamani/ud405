@@ -27,7 +27,7 @@ public class DragonCurve extends ApplicationAdapter {
 
     private float[] dragonCurve;
     // Any more than 10 and we'll need to break up the polyline into multiple lines
-    private static final int RECURSIONS = 10;
+    private static final int RECURSIONS = 9;
 
     private ShapeRenderer shapeRenderer;
 

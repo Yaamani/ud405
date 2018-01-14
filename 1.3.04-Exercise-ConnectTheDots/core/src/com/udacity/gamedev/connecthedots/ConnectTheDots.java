@@ -10,6 +10,8 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 
+import sun.rmi.runtime.Log;
+
 
 /**
  * TODO: Start here
@@ -55,6 +57,18 @@ public class ConnectTheDots extends ApplicationAdapter {
 
         float[] floatDots = new float[dots.size * 2];
 
+        int c = 0;
+        for (int i = 0; i < dots.size; i++) {
+            floatDots[c++] = dots.get(i).x;
+            floatDots[c++] = dots.get(i).y;
+        }
+
+        System.out.println("dots: " + dots);
+        System.out.print("floatDots: ");
+        for (int i = 0; i < floatDots.length; i++) {
+            System.out.print(floatDots[i] + ", ");
+        }
+
         return floatDots;
     }
 
@@ -81,11 +95,11 @@ public class ConnectTheDots extends ApplicationAdapter {
         spriteBatch.end();
 
         // TODO: Start a batch with Shapetype.Line
-
+        shapeRenderer.begin(ShapeType.Line);
         // TODO: Draw a polyline using the dot positions as a float array
-
+        shapeRenderer.polyline(floatDots);
         // TODO: End the batch
-
+        shapeRenderer.end();
 
     }
 }

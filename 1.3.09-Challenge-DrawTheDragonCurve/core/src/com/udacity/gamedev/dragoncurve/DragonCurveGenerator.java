@@ -20,6 +20,7 @@ public class DragonCurveGenerator {
                 case RIGHT:
                     newHeading.x = heading.y;
                     newHeading.y = -heading.x;
+                    break;
             }
             return newHeading;
         }
@@ -31,14 +32,24 @@ public class DragonCurveGenerator {
 
         for (int i = 0; i < recursions; i++){
             // TODO: Create a reversed copy of turns
-
-
+            LinkedList<Direction> reversed = new LinkedList<Direction>();
+            for (int c = turns.size() - 1; c >= 0; c--) {
+                reversed.add(turns.get(c));
+            }
+            System.out.println("------------- i = " + i + " -------------");
+            System.out.println("turns: " + turns);
+            System.out.println("reversed: " + reversed);
             // TODO: Add a left turn to turns
-
+            turns.add(Direction.LEFT);
 
             // TODO: Add reflected version of reversed to turns
-
+            for (int ii = 0; ii < reversed.size(); ii++) {
+                if (reversed.get(ii).equals(Direction.LEFT)) turns.add(Direction.RIGHT);
+                else turns.add(Direction.LEFT);
+            }
         }
+        System.out.println("--------------------------------------------------");
+        System.out.println(turns);
         return turns;
     }
 
@@ -56,8 +67,20 @@ public class DragonCurveGenerator {
         curve[i++] = head.y;
 
         //TODO: Convert the list of turns into the actual path
+        for (int c = 0; c < turns.size(); c++) {
+            heading = Direction.turn(heading, turns.get(c));
 
+            head.x += heading.x;
+            head.y += heading.y;
 
+            curve[i++] = head.x;
+            curve[i++] = head.y;
+        }
+
+        System.out.print("curve: ");
+        for (int ii = 0; ii < curve.length; ii++) {
+            System.out.print(curve[ii] + ", ");
+        }
         return curve;
 
     }

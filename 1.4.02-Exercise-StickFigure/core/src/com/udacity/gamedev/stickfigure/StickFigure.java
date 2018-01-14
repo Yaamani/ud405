@@ -3,6 +3,7 @@ package com.udacity.gamedev.stickfigure;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 /**
  * TODO: Start here
@@ -20,14 +21,16 @@ import com.badlogic.gdx.graphics.GL20;
  */
 public class StickFigure extends ApplicationAdapter {
 
+    ShapeRenderer shapeRenderer;
+
     @Override
     public void create() {
-
+        shapeRenderer = new ShapeRenderer();
     }
 
     @Override
     public void dispose() {
-
+        shapeRenderer.dispose();
     }
 
     @Override
@@ -35,5 +38,20 @@ public class StickFigure extends ApplicationAdapter {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+
+        shapeRenderer.circle(100, 300, 50);
+
+        shapeRenderer.end();
+
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+
+        shapeRenderer.line(100, 50, 100, 250);
+        shapeRenderer.line(100, 50, 140, 0);
+        shapeRenderer.line(100, 50, 60, 0);
+        shapeRenderer.line(100, 200, 140, 160);
+        shapeRenderer.line(100, 200, 60, 160);
+
+        shapeRenderer.end();
     }
 }
